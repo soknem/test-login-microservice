@@ -1,0 +1,47 @@
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          nextjs:
+            issuer-uri: http://localhost:8080
+        registration:
+          nextjs:
+            provider: nextjs
+            client-id: nextjs
+            client-secret: nextjs123
+            authorization-grant-type:
+              - authorization_code
+            scope: openid, profile
+            redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Access-Control-Request-Headers
+        - SaveSession
+      routes:
+        - id: business-route
+          uri: lb://business
+          predicates:
+            - Path=/api/v1/categories/**
+          filters:
+            - TokenRelay=
+            - RewritePath=/categories/(?<segment>.*),/$\{segment}
+
+        - id: identity-route
+          uri: lb://identity
+          predicates:
+            - Path=/identity/**
+          filters:
+            - TokenRelay=
+            - RewritePath=/identity/(?<segment>.*),/$\{segment}
+
+        - id: nextjs
+          uri: http://localhost:3000
+          predicates:
+            - Path=/**
