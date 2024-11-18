@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/business" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/config-server" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/eureka" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/gateway-server" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/identity" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/notification" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/product" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/restaurant" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/review" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/service" />
+    <file type="web" url="file://$PROJECT_DIR$/yelb-microservice/user-profile" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

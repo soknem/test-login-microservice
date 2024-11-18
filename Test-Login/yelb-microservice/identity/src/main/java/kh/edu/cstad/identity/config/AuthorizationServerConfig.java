@@ -85,33 +85,34 @@ public class AuthorizationServerConfig {
     @Primary
     public RegisteredClientRepository registeredClientRepository() {
 
-        TokenSettings tokenSettings =TokenSettings.builder()
+        TokenSettings tokenSettings = TokenSettings.builder()
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
                 .accessTokenTimeToLive(Duration.ofDays(1))
                 .reuseRefreshTokens(false)
                 .refreshTokenTimeToLive(Duration.ofDays(3))
                 .build();
+
         ClientSettings clientSettings = ClientSettings.builder()
                 .requireProofKey(true)
                 .requireAuthorizationConsent(true)
                 .build();
 
-        var web = RegisteredClient
-                .withId("nextjs")
+        // Next.js Client
+        var nextjs = RegisteredClient.withId("nextjs")
                 .clientId("nextjs")
                 .clientSecret(passwordEncoder.encode("nextjs123"))
                 .scopes(scopes -> {
                     scopes.add(OidcScopes.OPENID);
                     scopes.add(OidcScopes.PROFILE);
                 })
-                .redirectUris(uri->{
+                .redirectUris(uri -> {
                     uri.add("http://localhost:8085/login/oauth2/code/nextjs");
                 })
-                .postLogoutRedirectUris(uri->{
+                .postLogoutRedirectUris(uri -> {
                     uri.add("http://localhost:8085");
                 })
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantTypes(grantTypes->{
+                .authorizationGrantTypes(grantTypes -> {
                     grantTypes.add(AuthorizationGrantType.AUTHORIZATION_CODE);
                     grantTypes.add(AuthorizationGrantType.REFRESH_TOKEN);
                 })
@@ -119,10 +120,65 @@ public class AuthorizationServerConfig {
                 .tokenSettings(tokenSettings)
                 .build();
 
-        RegisteredClient registeredClient = jpaRegisteredClientRepository.findByClientId("nextjs");
+        // GitHub Client
+        var github = RegisteredClient.withId("github")
+                .clientId("github-id")  // Replace with your GitHub Client ID
+                .clientSecret(passwordEncoder.encode("github-secret"))  // Replace with your GitHub Client Secret
+                .scopes(scopes -> {
+                    scopes.add("user:email");  // Add any required scopes here
+                })
+                .redirectUris(uri -> {
+                    uri.add("http://localhost:8085/login/oauth2/code/github");  // GitHub OAuth2 redirect URI
+                })
+                .postLogoutRedirectUris(uri -> {
+                    uri.add("http://localhost:8085");
+                })
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantTypes(grantTypes -> {
+                    grantTypes.add(AuthorizationGrantType.AUTHORIZATION_CODE);
+                    grantTypes.add(AuthorizationGrantType.REFRESH_TOKEN);
+                })
+                .clientSettings(clientSettings)
+                .tokenSettings(tokenSettings)
+                .build();
 
+        // Telegram Client
+        var telegram = RegisteredClient.withId("telegram")
+                .clientId("telegram-id")  // Replace with your Telegram Client ID
+                .clientSecret(passwordEncoder.encode("telegram-secret"))  // Replace with your Telegram Client Secret
+                .scopes(scopes -> {
+                    scopes.add("openid");
+                    scopes.add("profile");
+                })
+                .redirectUris(uri -> {
+                    uri.add("http://localhost:8085/login/oauth2/code/telegram");  // Telegram OAuth2 redirect URI
+                })
+                .postLogoutRedirectUris(uri -> {
+                    uri.add("http://localhost:8085");
+                })
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantTypes(grantTypes -> {
+                    grantTypes.add(AuthorizationGrantType.AUTHORIZATION_CODE);
+                    grantTypes.add(AuthorizationGrantType.REFRESH_TOKEN);
+                })
+                .clientSettings(clientSettings)
+                .tokenSettings(tokenSettings)
+                .build();
+
+        // Persist Registered Clients to Repository
+        RegisteredClient registeredClient = jpaRegisteredClientRepository.findByClientId("nextjs");
         if (registeredClient == null) {
-            jpaRegisteredClientRepository.save(web);
+            jpaRegisteredClientRepository.save(nextjs);
+        }
+
+        registeredClient = jpaRegisteredClientRepository.findByClientId("github");
+        if (registeredClient == null) {
+            jpaRegisteredClientRepository.save(github);
+        }
+
+        registeredClient = jpaRegisteredClientRepository.findByClientId("telegram");
+        if (registeredClient == null) {
+            jpaRegisteredClientRepository.save(telegram);
         }
 
         return jpaRegisteredClientRepository;
