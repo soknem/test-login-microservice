@@ -23,14 +23,14 @@ spring:
             redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
           github:
             provider: github
-            client-id: github-id
+            client-id: github
             client-secret: github-secret
             authorization-grant-type: authorization_code
             scope: user:email
             redirect-uri: http://localhost:8085/login/oauth2/code/github
           telegram:
             provider: telegram
-            client-id: telegram-id
+            client-id: telegram
             client-secret: telegram-secret
             authorization-grant-type: authorization_code
             scope: profile
