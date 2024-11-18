@@ -1,20 +1,39 @@
-
 spring:
   security:
     oauth2:
       client:
         provider:
           nextjs:
-            issuer-uri: http://localhost:8080
+            issuer-uri: http://localhost:8080  # Next.js OAuth2 issuer URI
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+          telegram:
+            authorization-uri: https://oauth.telegram.org/auth
+            token-uri: https://oauth.telegram.org/access_token
+            user-info-uri: https://api.telegram.org/user
         registration:
           nextjs:
             provider: nextjs
             client-id: nextjs
             client-secret: nextjs123
-            authorization-grant-type:
-              - authorization_code
+            authorization-grant-type: authorization_code
             scope: openid, profile
             redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
+          github:
+            client-id: github-id
+            client-secret: your-github-client-secret
+            authorization-grant-type: authorization_code
+            scope: user:email
+            redirect-uri: http://localhost:8085/login/oauth2/code/github
+          telegram:
+            client-id: your-telegram-client-id
+            client-secret: your-telegram-client-secret
+            authorization-grant-type: authorization_code
+            scope: profile
+            redirect-uri: http://localhost:8085/login/oauth2/code/telegram
+
   cloud:
     gateway:
       discovery:
@@ -42,6 +61,6 @@ spring:
             - RewritePath=/identity/(?<segment>.*),/$\{segment}
 
         - id: nextjs
-          uri: http://localhost:3000
+          uri: http://localhost:3000  # Next.js frontend URL
           predicates:
             - Path=/**

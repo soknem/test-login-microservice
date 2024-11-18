@@ -9,8 +9,8 @@ spring:
       enabled: true
       server:
         git:
-          search-paths: /**
-          uri: https://github.com/soknem/yelp-config-resource.git
+          search-paths: /Test-Login/yelp-config-resource/**
+          uri: https://github.com/soknem/test-login-microservice.git
           default-label: main
           clone-on-start: true
   kafka:
