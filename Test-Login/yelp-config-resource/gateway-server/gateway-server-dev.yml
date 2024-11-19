@@ -3,8 +3,10 @@ spring:
     oauth2:
       client:
         provider:
-          nextjs:
-            issuer-uri: http://localhost:8080  # Next.js OAuth2 issuer URI
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
           github:
             authorization-uri: https://github.com/login/oauth/authorize
             token-uri: https://github.com/login/oauth/access_token
@@ -14,13 +16,13 @@ spring:
             token-uri: https://oauth.telegram.org/access_token
             user-info-uri: https://api.telegram.org/user
         registration:
-          nextjs:
-            provider: nextjs
-            client-id: nextjs
-            client-secret: nextjs123
+          google:
+            provider: google
+            client-id: 1269394266-sqbgeggcmk05hop03kkggb3jfi6tb5lf.apps.googleusercontent.com
+            client-secret: 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
             authorization-grant-type: authorization_code
-            scope: openid, profile
-            redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
+            scope: openid, profile, email
+            redirect-uri: http://localhost:8085/login/oauth2/code/google
           github:
             provider: github
             client-id: Ov23liZp7jXgv2WZShWi
@@ -66,3 +68,6 @@ spring:
           uri: http://localhost:3000  # Next.js frontend URL
           predicates:
             - Path=/**
+          filters:
+            - TokenRelay=
+            - RewritePath=/**,/$\{segment}

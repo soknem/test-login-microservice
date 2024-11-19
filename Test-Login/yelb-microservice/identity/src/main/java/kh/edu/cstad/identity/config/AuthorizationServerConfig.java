@@ -128,7 +128,7 @@ public class AuthorizationServerConfig {
                     scopes.add("user:email");  // Add any required scopes here
                 })
                 .redirectUris(uri -> {
-                    uri.add("http://localhost:8085/login/oauth2/code/github");  // GitHub OAuth2 redirect URI
+                    uri.add("http://localhost:8085/login/oauth2/code/github");
                 })
                 .postLogoutRedirectUris(uri -> {
                     uri.add("http://localhost:8085");
@@ -144,14 +144,38 @@ public class AuthorizationServerConfig {
 
         // Telegram Client
         var telegram = RegisteredClient.withId("telegram")
-                .clientId("telegram")  // Replace with your Telegram Client ID
-                .clientSecret(passwordEncoder.encode("telegram-secret"))  // Replace with your Telegram Client Secret
+                .clientId("telegram")
+                .clientSecret(passwordEncoder.encode("telegram-secret"))
                 .scopes(scopes -> {
                     scopes.add("openid");
                     scopes.add("profile");
                 })
                 .redirectUris(uri -> {
-                    uri.add("http://localhost:8085/login/oauth2/code/telegram");  // Telegram OAuth2 redirect URI
+                    uri.add("http://localhost:8085/login/oauth2/code/telegram");
+                })
+                .postLogoutRedirectUris(uri -> {
+                    uri.add("http://localhost:8085");
+                })
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantTypes(grantTypes -> {
+                    grantTypes.add(AuthorizationGrantType.AUTHORIZATION_CODE);
+                    grantTypes.add(AuthorizationGrantType.REFRESH_TOKEN);
+                })
+                .clientSettings(clientSettings)
+                .tokenSettings(tokenSettings)
+                .build();
+
+        // Google Client
+        var google = RegisteredClient.withId("google")
+                .clientId("1269394266-sqbgeggcmk05hop03kkggb3jfi6tb5lf.apps.googleusercontent.com")  // Replace with your Google Client ID
+                .clientSecret(passwordEncoder.encode("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"))  // Replace with your Google Client Secret
+                .scopes(scopes -> {
+                    scopes.add(OidcScopes.OPENID);  // OpenID scope for authentication
+//                    scopes.add(OidcScopes.PROFILE);  // Profile scope to access user profile information
+                    scopes.add("email");  // Email scope to access user's email
+                })
+                .redirectUris(uri -> {
+                    uri.add("http://localhost:8085/login/oauth2/code/google");  // Google OAuth2 redirect URI
                 })
                 .postLogoutRedirectUris(uri -> {
                     uri.add("http://localhost:8085");
@@ -179,6 +203,11 @@ public class AuthorizationServerConfig {
         registeredClient = jpaRegisteredClientRepository.findByClientId("telegram");
         if (registeredClient == null) {
             jpaRegisteredClientRepository.save(telegram);
+        }
+
+        registeredClient = jpaRegisteredClientRepository.findByClientId("google");
+        if (registeredClient == null) {
+            jpaRegisteredClientRepository.save(google);
         }
 
         return jpaRegisteredClientRepository;
