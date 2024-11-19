@@ -171,7 +171,7 @@ public class AuthorizationServerConfig {
                 .clientSecret(passwordEncoder.encode("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"))  // Replace with your Google Client Secret
                 .scopes(scopes -> {
                     scopes.add(OidcScopes.OPENID);  // OpenID scope for authentication
-//                    scopes.add(OidcScopes.PROFILE);  // Profile scope to access user profile information
+                    scopes.add(OidcScopes.PROFILE);  // Profile scope to access user profile information
                     scopes.add("email");  // Email scope to access user's email
                 })
                 .redirectUris(uri -> {
@@ -218,9 +218,13 @@ public class AuthorizationServerConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().authenticated()
+                        authorizeRequests
+                                .requestMatchers("/public/**").permitAll() // Public endpoints
+                                .anyRequest().authenticated() // All other endpoints require authentication
                 )
+                .oauth2Login(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
+
 
         http.cors(Customizer.withDefaults());
 

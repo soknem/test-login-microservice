@@ -5,10 +5,10 @@ spring:
         provider:
           nextjs:
             issuer-uri: http://localhost:8080
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+#          google:
+#            authorization-uri: https://accounts.google.com/o/oauth2/auth
+#            token-uri: https://oauth2.googleapis.com/token
+#            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
           github:
             authorization-uri: https://github.com/login/oauth/authorize
             token-uri: https://github.com/login/oauth/access_token
@@ -25,13 +25,13 @@ spring:
             authorization-grant-type: authorization_code
             scope: openid, profile
             redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
-          google:
-            provider: google
-            client-id: 1269394266-sqbgeggcmk05hop03kkggb3jfi6tb5lf.apps.googleusercontent.com
-            client-secret: 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
-            authorization-grant-type: authorization_code
-            scope: openid, profile, email
-            redirect-uri: http://localhost:8085/login/oauth2/code/google
+#          google:
+#            provider: google
+#            client-id: 1269394266-sqbgeggcmk05hop03kkggb3jfi6tb5lf.apps.googleusercontent.com
+#            client-secret: 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
+#            authorization-grant-type: authorization_code
+#            scope: openid, profile, email
+#            redirect-uri: http://localhost:8085/login/oauth2/code/google
           github:
             provider: github
             client-id: Ov23liZp7jXgv2WZShWi

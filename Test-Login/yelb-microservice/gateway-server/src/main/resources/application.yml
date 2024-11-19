@@ -1,4 +1,23 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1269394266-sqbgeggcmk05hop03kkggb3jfi6tb5lf.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - openid
+              - profile
+              - email
+            redirect-uri: "http://localhost:8085/login/oauth2/code/google"
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+
+
   application:
     name: gateway-server
   profiles:

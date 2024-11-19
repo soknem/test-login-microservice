@@ -16,4 +16,9 @@ public class CategoryController {
     public Map<String,String> findAl(){
         return Map.of("name","soknem");
     }
+
+    @GetMapping("/send")
+    public String sendMessage(){
+        return "Sent message";
+    }
 }

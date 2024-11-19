@@ -10,7 +10,7 @@ export default function Home() {
                 {/* Login with Next.js */}
                 <Link
                     href="/oauth2/authorization/nextjs"
-                    className="bg-blue-300 text-black m-5 w-[300px] h-[80px] flex justify-center items-center rounded-sm hover:scale-105 transition-transform duration-200 text-[2rem] border border-blue-400  hover:bg-blue-400 hover:border-blue-500"
+                    className="bg-blue-300 text-black m-5 w-[300px] h-[80px] flex justify-center items-center rounded-sm hover:scale-105 transition-transform duration-200 text-[2rem] border border-blue-400 hover:bg-blue-400 hover:border-blue-500"
                 >
                     Login with Next.js
                 </Link>
@@ -29,6 +29,14 @@ export default function Home() {
                     className="bg-blue-500 text-white m-5 w-[300px] h-[80px] flex justify-center items-center rounded-sm hover:scale-105 transition-transform duration-200 text-[2rem] border border-blue-600 hover:bg-blue-600 hover:border-blue-700"
                 >
                     Login with Telegram
+                </Link>
+
+                {/* Login with Google */}
+                <Link
+                    href="/oauth2/authorization/google"
+                    className="bg-red-500 text-white m-5 w-[300px] h-[80px] flex justify-center items-center rounded-sm hover:scale-105 transition-transform duration-200 text-[2rem] border border-red-600 hover:bg-red-600 hover:border-red-700"
+                >
+                    Login with Google
                 </Link>
             </div>
         </>
