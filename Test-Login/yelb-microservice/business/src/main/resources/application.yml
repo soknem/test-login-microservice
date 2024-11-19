@@ -27,6 +27,3 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-twilio.accountSid: ACb04e32f728caa95ac378c96025413050
-twilio.authToken: 7a25c38e73e2edc907e159eb838b8524
-twilio.phoneNumber: 0718442020
