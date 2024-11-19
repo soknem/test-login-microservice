@@ -122,8 +122,8 @@ public class AuthorizationServerConfig {
 
         // GitHub Client
         var github = RegisteredClient.withId("github")
-                .clientId("github-id")  // Replace with your GitHub Client ID
-                .clientSecret(passwordEncoder.encode("github-secret"))  // Replace with your GitHub Client Secret
+                .clientId("Ov23liZp7jXgv2WZShWi")  // Replace with your GitHub Client ID
+                .clientSecret(passwordEncoder.encode("2c0592220b43a3442cd89478dd75ffa3357936f2"))  // Replace with your GitHub Client Secret
                 .scopes(scopes -> {
                     scopes.add("user:email");  // Add any required scopes here
                 })
@@ -144,7 +144,7 @@ public class AuthorizationServerConfig {
 
         // Telegram Client
         var telegram = RegisteredClient.withId("telegram")
-                .clientId("telegram-id")  // Replace with your Telegram Client ID
+                .clientId("telegram")  // Replace with your Telegram Client ID
                 .clientSecret(passwordEncoder.encode("telegram-secret"))  // Replace with your Telegram Client Secret
                 .scopes(scopes -> {
                     scopes.add("openid");

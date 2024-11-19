@@ -23,8 +23,8 @@ spring:
             redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
           github:
             provider: github
-            client-id: github
-            client-secret: github-secret
+            client-id: Ov23liZp7jXgv2WZShWi
+            client-secret: 2c0592220b43a3442cd89478dd75ffa3357936f2
             authorization-grant-type: authorization_code
             scope: user:email
             redirect-uri: http://localhost:8085/login/oauth2/code/github
