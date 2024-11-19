@@ -3,6 +3,8 @@ spring:
     oauth2:
       client:
         provider:
+          nextjs:
+            issuer-uri: http://localhost:8080
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/auth
             token-uri: https://oauth2.googleapis.com/token
@@ -16,6 +18,13 @@ spring:
             token-uri: https://oauth.telegram.org/access_token
             user-info-uri: https://api.telegram.org/user
         registration:
+          nextjs:
+            provider: nextjs
+            client-id: nextjs
+            client-secret: nextjs123
+            authorization-grant-type: authorization_code
+            scope: openid, profile
+            redirect-uri: http://localhost:8085/login/oauth2/code/nextjs
           google:
             provider: google
             client-id: 1269394266-sqbgeggcmk05hop03kkggb3jfi6tb5lf.apps.googleusercontent.com
