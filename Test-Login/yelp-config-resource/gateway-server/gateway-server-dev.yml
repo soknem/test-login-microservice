@@ -70,4 +70,4 @@ spring:
             - Path=/**
           filters:
             - TokenRelay=
-            - RewritePath=/**,/$\{segment}
+#            - RewritePath=/**,/$\{segment}
